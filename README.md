@@ -1,1 +1,34 @@
 # analise_hotel_booking
+
+#Descrição da Tabela
+- ADR
+- Adults
+- Agent
+- ArrivalDateDayOfMonth
+- ArrivalDateMonth
+- ArrivalDateWeekNumber
+- ArrivalDateYear
+- AssignedRoomType
+- Babies
+- BookingChanges
+- Children
+- Company
+- Country
+- CustomerType
+- DaysInWaitingList
+- DepositType
+- DistribuitionChannel
+- IsCanceled
+- IsRepeatedGuest
+- LeadTime
+- MarketSegment
+- Meal
+- PreviousBookingsNotCanceled
+- PreviousCancellations
+- RequiredCardParkingSpaces
+- ReservationStatus
+- ReservationStatusDate
+- ReservedRoomType
+- StaysInWeekendNights
+- StaysInweekNights
+- TotalOfSpecialRequests
