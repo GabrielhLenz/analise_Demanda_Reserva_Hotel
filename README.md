@@ -60,3 +60,12 @@
 - StaysInWeekendNights(Inteiro): Número de noites de fim de semana (sábado ou domingo) incluídas na reserva.
 - StaysInweekNights(Inteiro): Número de noites de semana (segunda a sexta) incluídas na reserva.
 - TotalOfSpecialRequests(Inteiro): Número total de pedidos especiais feitos pelo cliente (ex: cama de solteiro, andar alto).
+
+
+## Dataset
+- Dataset coletado no Kaggle.
+- Link: https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
+## Contato
+- Linkedin: https://www.linkedin.com/in/gabrielhlenz/
+- Github: https://github.com/GabrielhLenz
+- Email: gabrielxlenz@gmail.com
