@@ -88,7 +88,7 @@ O gráfico abaixo mostra o total de hospedagens durante a linha de tempo documen
 Uma análise na média gasta por hóspede mostra uma tendência diferente nos dois hotéis:
 - Hotel na Cidade:
     - Os meses de Outubro a Março mostram um gasto médio por hóspede de aproximadamente 21,99% menor que nos demais meses.
-    - Os meses de agosto/setembro e maio mostram um gasto médio de aproximadamente 19,60% maior que nos demais meses.
+    - Os meses de Agosto/Setembro e maio mostram um gasto médio de aproximadamente 19,60% maior que nos demais meses.
     - Diferente do total de hospedagem, o gasto médio por hóspede no hotel da cidade não apresenta uma mudança significativa ao decorrer dos meses.
 - Hotel Resort:
     - Apresenta picos acentuados nos meses de julho, agosto e setembro, com sua alta sendo sempre em agosto. Esse evento acontece durante as férias de verão na região.
@@ -100,7 +100,14 @@ Uma análise na média gasta por hóspede mostra uma tendência diferente nos do
 ![Gasto médio em cada hospedagem por Mês](./assets/media_gasto_hospedagem.png)
 
 Análise do total gerado
+- Hotel na Cidade:
+    - Enquanto o número de reservas ao longo dos meses conta com picos de alta e baixa, a média de gasto por cliente não conta com esse ruído. Mesmo assim, meses com picos baixos de hospedagem são acompanhados com meses de uma baixa relativa na média gasta por clientes em relação a meses com alta de hospedagem, onde clientes acabam gastando mais dinheiro.
+    - O gráfico do total gerado com hospedagens segue uma dispersão semelhante ao número de reservas válidas. Contudo, podemos observar picos mais acentuados no decorrer dos meses devido a uma correlação do aumento de reservas junto de um gasto maior por clientes na mesma época.
+- Hotel Resort:
+    - Diferente do hotel da cidade que o gráfico acompanha o número de hospedagens, o gasto total no hotel resort acompanha o gasto médio por cliente, mantendo seus picos de Julho, Agosto e Setembro, assim como um pico em Dezembro se comparado com os meses de Novembro e Janeiro.
+    - Mesmo com os picos que ocorrem em Julho, Agosto e Setembro, o hotel Resort não ultrapassa o total gerado pelos clientes, devido ao alto número de hóspedes no hotel da cidade.
 
+![Gasto total de hospedagem por Mês](./assets/total_gerado_hospedagem.png)
 ## Dataset
 - Dataset coletado no Kaggle.
 - Link: https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
