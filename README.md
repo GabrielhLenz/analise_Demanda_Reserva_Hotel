@@ -108,6 +108,10 @@ Análise do total gerado
     - Mesmo com os picos que ocorrem em Julho, Agosto e Setembro, o hotel Resort não ultrapassa o total gerado pelos clientes, devido ao alto número de hóspedes no hotel da cidade.
 
 ![Gasto total de hospedagem por Mês](./assets/total_gerado_hospedagem.png)
+
+Análise sobre reservas canceladas
+
+
 ## Dataset
 - Dataset coletado no Kaggle.
 - Link: https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
