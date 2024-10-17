@@ -137,41 +137,49 @@ Primeiro iremos avaliar ações que podem ser tomadas no Hotel da Cidade para ga
 #### Análise de reservas com diferentes Tipos de Clientes
 - Clientes(Group) que tem suas reservas associadas a grupos, contam com a menor taxa de cancelamento, com apenas **9,90%** das reservas desse tipo sendo canceladas.
 - O maior problema é encontrado em clientes **Transient**(Reserva individual, não associada a grupo ou contrato) e **Contract**(Reserva associada a uma alocação ou outro tipo de contrato associado a ela), que contam respectivamente com **45,62%** e **48,04%** das reservas sendo canceladas.
-- O cliente **Transient-Party**(Reserva individual, mas associada a outras reservas individuais) também conta com um número elevado de reservas canceladas se comparado com reservas realizadas por clientes **Group**, com uma taxa de cancelamento aproximadamente **180%** maior. Mesmo assim, é um tipo de cliente que tende a cancelar mesmo se comparado com as altas taxas de cancelamento de **Transient** e **Contract**
+- O cliente **Transient-Party**(Reserva individual, mas associada a outras reservas individuais) também conta com um número elevado de reservas canceladas se comparado com reservas realizadas por clientes **Group**, com uma taxa de cancelamento aproximadamente **180%** maior. Mesmo assim, é um tipo de cliente que tende a cancelar menos se comparado com as altas taxas de cancelamento de **Transient** e **Contract**
 
 ![Reservas canceladas para cada Tipo de Cliente](./assets/tipo_cliente_cidade.png)
 
 ### Hotel Resort
 #### Análise de reservas realizadas com Agentes
--
+- Assim como acontece no Hotel da Cidade, o Hotel Resort tem uma taxa de cancelamento menor em reservas realizadas **sem Agentes** em comparação a reservas canceladas **com Agentes**.
 
 ![Reservas canceladas com e sem Agente](./assets/agente_hotel_resort.png)
 
 #### Análise de reservas realizadas com Empresas
--
+- O **cancelamento** de reservas realizadas **sem Empresas** é aproximadamente **121%** maior do que reservas canceladas **com Empresas**.
 
 ![Reservas canceladas com e sem Empresa](./assets/empresa_hotel_resort.png)
 
 #### Análise de reservas em diferentes Canais de Distribuição
--
+- Assim como ocorre nos **Canais de Distribuição** do Hotel da Cidade, existe uma diferença notável entre reservas canceladas no **Canal de Distribuição** **TA/TO** para os demais.
+- Os **Canais de Distribuição** **Direct** e **Corporate** mantém uma margem de cancelamento aproximadas.
 
 ![Reservas canceladas em cada Canal de Distribuição](./assets/canal_distribuicao_resort.png)
 
 #### Análise de reservas com diferentes Tipos de Clientes
--
+- **Clientes** **Contract** e **Group** tem um baixo percentual de cancelamento.
+- O **Cliente** **Contract** conta com apenas **8,84%** das suas reservas canceladas, um número completamente diferente do que acontece no **Hotel da Cidade**, onde a maior taxa de cancelamento ocorre para esse tipo de cliente.
+- **Clientes** **Transient-Party** tem  **84,66%** a mais de suas reservas **canceladas** em comparação a **clientes** **Group**, mas é relativamente menor do que clientes **Transient**.
+- **Clientes** **Transient** tem **59,85%** a mais de suas reservas **Canceladas** em comparação com **Clientes Transiet-Party**.
 
 ![Reservas canceladas para cada Tipo de Cliente](./assets/tipo_cliente_resort.png)
 
 ### Como aumentar a lucratividade do Hotel
 #### Hotel na Cidade
-- Reservas sem Agente tendem a ter uma taxa menor de cancelamento.
+- Reservas **sem Agente** tendem a ter uma taxa menor de cancelamento.
 - Promoção para reservas realizadas com **Empresa** pode aumentar o número de reservas válidas, já que reservas desse tipo contam com menos da metade de cancelamento que acontece em reservas para clientes sem **Empresa**.
 - Focar em clientes com **Canal de Distribuição** **Direct, GDS e Corporate** também pode influenciar positivamente nas reservas válidas, já que clientes **TA/TO** contam com um número alto em comparação com os demais.
 - Clientes **Group** tem um baixo percentual de cancelamento, de apenas **9,90%**. Propagandas para esse Tipo de cliente pode ser uma boa abordagem.
-- Clientes **Transient-Party** são relativamente maiores que clientes **Group**, mas menores que clientes **Transient**. Devido a isso, programas que incentivem clientes **Transient** a se reservarem como clientes **Transient-Party** pode ser uma boa metodologia para diminuir o número bruto de cancelamento.  
+- Clientes **Transient-Party** tem uma taxa de cancelamento relativamente maior que clientes **Group**, mas menor que clientes **Transient**. Devido a isso, programas que incentivem clientes **Transient** a se reservarem como clientes **Transient-Party** pode ser uma boa metodologia para diminuir o número bruto de cancelamento.  
 
 #### Hotel Resort
-- 
+- Assim como no **Hotel na Cidade**, as reservas no **Hotel Resort** tem uma taxa de **cancelamento** **menor** quando feitas sem um **Agente**
+- Seguindo a mesma linha do **Hotel na Cidade**, é possível que promoções para incentivar reservas **Com Empresa** aumentem o número bruto de hospedagens não canceladas.
+- O **Cancelamento** de reservas no **Hotel Resort** é razoavelmente menor se comparado com o **Hotel na Cidade**. Mesmo assim, pode seguir a mesma linha para **Canais de Distribuição**. Focando esforços para alojar hóspedes provenientes do **Canal de Distribuição** **Direct** e **Corporate**.
+- **Clientes** **Contract** e **Group** tem uma baixa taixa de cancelamento, podendo ser um ótimo **público-alvo**.
+- **Clientes Transient-Party** tem uma taxa de **cancelamento** menor que clientes **Transient**, o que torna interessante a criação de programas que incentivem clientes **Transient** se tornarem clientes **Transient-Party**.
 
 ## Dataset
 - Dataset coletado no Kaggle.
