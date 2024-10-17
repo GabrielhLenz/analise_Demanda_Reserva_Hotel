@@ -1,4 +1,4 @@
-# Análisde Demanda de Hotel
+# Análise de Demanda de Hotel
 
 - **Descrição**:Este é um projeto de análise de dados utilizando SQL, realizando uma análise exploratória de dados e compartilhando os insights obtidos através da base de dados *hotel booking demand* otida através do Kaggle.
 - **Objetivos**: Analisar as reservas realizadas entre Julho de 2015 e Agosto de 2017 para responder perguntas de negócios relevantes e encontrar pontos a serem explorados em cada tipo de hotel analisado com a finalidade de aumentar os lucros da empresa.
