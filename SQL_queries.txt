@@ -1,0 +1,284 @@
+-- 1. Quantas reservas foram feitas em cada um dos hotéis?
+SELECT
+	hotel,
+	COUNT(*) AS total_reservas,
+	ROUND(COUNT(*) * 100.0 / (
+	SELECT
+		COUNT(*)
+	FROM
+		hotel_bookings),
+	2) AS percentual_reservas
+FROM
+	hotel_bookings
+GROUP BY
+	hotel
+	-- City Hotel | 79330 - 66,45%
+	-- Resort Hotel | 40060 - 33,55%
+	
+-- 2. Qual a porcentagem das reservas em cada hotel que foram canceladas?
+SELECT
+	hotel,
+	COUNT(*) AS reservas_canceladas,
+	ROUND(count(*) * 100.0 / (
+	SELECT
+		count(*)
+	FROM
+		hotel_bookings hb2
+	WHERE
+		hb.hotel = hb2.hotel),
+	2) AS percentual_cancelamento
+FROM
+	hotel_bookings hb
+WHERE
+	is_canceled = 1
+GROUP BY
+	1
+	-- City Hotel	33102 | 41.73%
+	-- Resort Hotel	11122 | 27.76%
+
+-- 3. Qual a  média de dias de estadia durante a semana e no final de semana para cada tipo de hotel?
+SELECT
+	hotel,
+	ROUND(AVG(stays_in_weekend_nights),
+	2) AS media_estadia_finais_semana,
+	ROUND(AVG(stays_in_week_nights),
+	2) AS media_estadia_semana
+FROM
+	hotel_bookings
+GROUP BY
+	hotel;
+--hotel			Media_finais_semana		media_durante_semana
+--City Hotel	0.8						2.18
+--Resort Hotel	1.19					3.13
+
+-- 4. Qual o percentual de reservas canceladas em cada mês?
+SELECT
+	hotel,
+	CONCAT(arrival_date_year,
+	'-',
+	CASE
+		WHEN arrival_date_month = 'January' THEN '01-01'
+		WHEN arrival_date_month = 'February' THEN '02-01'
+		WHEN arrival_date_month = 'March' THEN '03-01'
+		WHEN arrival_date_month = 'April' THEN '04-01'
+		WHEN arrival_date_month = 'May' THEN '05-01'
+		WHEN arrival_date_month = 'June' THEN '06-01'
+		WHEN arrival_date_month = 'July' THEN '07-01'
+		WHEN arrival_date_month = 'August' THEN '08-01'
+		WHEN arrival_date_month = 'September' THEN '09-01'
+		WHEN arrival_date_month = 'October' THEN '10-01'
+		WHEN arrival_date_month = 'November' THEN '11-01'
+		WHEN arrival_date_month = 'December' THEN '12-01'
+	END
+        ) AS 'data',
+	COUNT(*) AS total_reservas,
+	SUM(CASE WHEN is_canceled = 0 THEN 1 ELSE 0 END) AS reservas_nao_canceladas,
+	SUM(CASE WHEN is_canceled = 1 THEN 1 ELSE 0 END) AS reservas_canceladas, 
+	ROUND((SUM(CASE WHEN is_canceled = 1 THEN 1 ELSE 0 END) * 100.0) / COUNT(*),
+	2) AS percentual_reservas_canceladas
+FROM
+	hotel_bookings
+GROUP BY
+	hotel,
+	2
+	
+--5. Qual foi o total e a média de gastos por clientes ao longo dos meses?
+WITH arrival_date AS (
+	SELECT
+		hotel,
+		CONCAT(arrival_date_year,
+		'-',
+		CASE
+			WHEN arrival_date_month = 'January' THEN '01-01'
+			WHEN arrival_date_month = 'February' THEN '02-01'
+			WHEN arrival_date_month = 'March' THEN '03-01'
+			WHEN arrival_date_month = 'April' THEN '04-01'
+			WHEN arrival_date_month = 'May' THEN '05-01'
+			WHEN arrival_date_month = 'June' THEN '06-01'
+			WHEN arrival_date_month = 'July' THEN '07-01'
+			WHEN arrival_date_month = 'August' THEN '08-01'
+			WHEN arrival_date_month = 'September' THEN '09-01'
+			WHEN arrival_date_month = 'October' THEN '10-01'
+			WHEN arrival_date_month = 'November' THEN '11-01'
+			WHEN arrival_date_month = 'December' THEN '12-01'
+		END
+        ) AS arrival_date,
+		adr
+	FROM
+		(
+		SELECT
+			*
+		FROM
+			hotel_bookings
+		WHERE
+			is_canceled = 0)
+)
+
+SELECT
+	hotel,
+	arrival_date,
+	ROUND(AVG(adr),
+	2) AS media_gastos_cliente,
+	ROUND(SUM(adr),
+	2) AS total_gastos_cliente,
+	count(*) AS total_reservas
+FROM
+	arrival_date
+GROUP BY
+	1,
+	2
+ORDER BY
+	1,
+	2,
+	3;
+
+
+-- 6. Qual o tipo de depósito mais realizado em cada um dos hoteis?
+SELECT 
+	hotel,
+	deposit_type,
+	count(*) AS total_deposito,
+	ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (PARTITION BY hotel),
+	2) AS percentual_deposito
+FROM
+	hotel_bookings
+GROUP BY
+	1,
+	2
+	--City Hotel	No Deposit	66442	83.75
+	--City Hotel	Non Refund	12868	16.22
+	--City Hotel	Refundable	20	0.03
+	--Resort Hotel	No Deposit	38199	95.35
+	--Resort Hotel	Non Refund	1719	4.29
+	--Resort Hotel	Refundable	142	0.35	
+
+-- 7. Qual a taxa de cancelamento em cada tipo de depósito?
+SELECT  
+	hotel,
+	deposit_type,
+	ROUND((AVG(is_canceled)),
+	2) AS taxa_cancelamento,
+	COUNT(*) AS total_reservas,
+	sum(is_canceled) AS cancelados
+FROM
+	hotel_bookings
+GROUP BY
+	1,
+	2
+	--City Hotel	No Deposit	0.3	66442	20244
+	--City Hotel	Non Refund	1.0	12868	12844
+	--City Hotel	Refundable	0.7	20	14
+	--Resort Hotel	No Deposit	0.25	38199	9450
+	--Resort Hotel	Non Refund	0.96	1719	1650
+	--Resort Hotel	Refundable	0.15	142	22
+
+-- 8. Qual a taxa de cancelamento entre hóspedes que já cancelaram sua reserva anteriormente?
+	SELECT
+	hotel,
+	CASE 
+		WHEN previous_cancellations = 0 THEN 0
+		WHEN previous_cancellations = 1 THEN 1
+		WHEN previous_cancellations = 2 THEN 2
+		WHEN previous_cancellations >= 3 THEN '3+'
+	END AS cancelamentos_anteriores,
+	AVG(is_canceled) AS porcentagem_cancelamento
+FROM
+	hotel_bookings
+GROUP BY
+	1,
+	2
+	--City Hotel	0	0.37981634005490866
+	--City Hotel	1	0.9629485935984481
+	--City Hotel	2	0.18055555555555555
+	--City Hotel	3+	0.25308641975308643
+	--Resort Hotel	0	0.2617220582574105
+	--Resort Hotel	1	0.8370535714285714
+	--Resort Hotel	2	0.5681818181818182
+	--Resort Hotel	3+	0.9612903225806452
+	
+-- 9. Qual a taxa de cancelamento para reservas feitas com ou sem agentes?
+SELECT 
+	hotel,
+	CASE
+		WHEN agent = 'NULL' THEN 'Sem agente'
+		ELSE 'Com agente'
+	END AS agente_status,
+	AVG(is_canceled) AS cancelation_rate
+FROM
+	hotel_bookings
+GROUP BY
+	1,
+	agente_status;
+--City Hotel	Com agente	0.4282784870574025
+--City Hotel	Sem agente	0.3208707416061985
+--Resort Hotel	Com agente	0.3045744246648457
+--Resort Hotel	Sem agente	0.17310269216713364
+
+-- 10.  Qual a taxa de cancelamento para reservas feitas com ou sem empresa?
+SELECT
+	hotel,
+	CASE
+		WHEN company = 'NULL' THEN 'Sem empresa'
+		ELSE 'Com empresa'
+	END AS empresa_status,
+	AVG(is_canceled) AS cancelation_rate
+FROM
+	hotel_bookings
+GROUP BY
+	1,
+	2;
+--City Hotel	Com empresa	0.21
+--City Hotel	Sem empresa	0.42
+--Resort Hotel	Com empresa	0.13
+--Resort Hotel	Sem empresa	0.29
+
+-- 11. entre os canais de distribuição, qual a porcentagem de cancelamento nas reservas?
+SELECT
+	hotel,
+	distribution_channel,
+	ROUND(AVG(is_canceled),
+	2) AS taxa_cancelamento,
+	count(distribution_channel) AS total_reservas
+FROM
+	hotel_bookings
+WHERE
+	distribution_channel != 'Undefined'
+GROUP BY
+	1,
+	2
+ORDER BY
+	1,
+	3 ASC;
+--hotel         Distribuition_channel taxa_cancelamento total_reservas
+--City Hotel	Direct	    		  0.18	            6780
+--City Hotel	GDS	                  0.19	            193
+--City Hotel	Corporate	          0.23	            3408
+--City Hotel	TA/TO	              0.45	            68945
+--Resort Hotel	Direct	              0.17	            7865
+--Resort Hotel	Corporate	          0.21	            3269
+--Resort Hotel	TA/TO	              0.31	            28925
+
+-- 12. taxa de cancelamento em cada tipo de cliente
+SELECT
+	hotel,
+	customer_type,
+	--sum(is_canceled) AS total_reservas_canceladas,
+	ROUND(AVG(is_canceled),
+	4) AS taxa_cancelamento
+FROM
+	hotel_bookings
+GROUP BY
+	1,
+	2
+ORDER BY
+	1,
+	3
+	--hotel         customer_type    taxa_cancelamento
+	--City Hotel	Group	         0.099
+	--City Hotel	Transient-Party	 0.281
+	--City Hotel	Transient	     0.4562
+	--City Hotel	Contract	     0.4804
+	--Resort Hotel	Contract	     0.0884
+	--Resort Hotel	Group	         0.1056
+	--Resort Hotel	Transient-Party	 0.195
+	--Resort Hotel	Transient	     0.3117
